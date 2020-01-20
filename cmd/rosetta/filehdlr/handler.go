@@ -26,7 +26,6 @@ func ConfigFileCheck() bool {
 	_, fileErr := os.Stat(currentConfigPath)
 
 	if os.IsNotExist(fileErr) {
-		println("File doesn't exist")
 		return false
 	}
 

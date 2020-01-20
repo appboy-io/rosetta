@@ -1,15 +1,27 @@
 package main
 
 import (
-	"fmt"
-	"strconv"
+	flag "github.com/ogier/pflag"
 
 	"github.com/human-caching/rosetta/cmdparser"
 )
 
-func main() {
-	path, newInstall := cmdparser.ContextCheck()
+var context = flag.StringP("context", "c", "", "Context for aliases")
 
-	fmt.Println("Current Config Directory: " + path)
-	fmt.Println("Is this a new install: " + strconv.FormatBool(!newInstall))
+var doInstall = false
+
+func main() {
+	if doInstall {
+		println("Initial installation is needed to use Rosetta")
+	} else {
+		// Parse commands sent if install is uneeded
+		flag.Parse()
+	}
+
+}
+
+func init() {
+	_, newInstall := cmdparser.ContextCheck()
+
+	doInstall = !newInstall
 }
