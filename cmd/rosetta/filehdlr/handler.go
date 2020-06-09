@@ -31,3 +31,24 @@ func ConfigFileCheck() bool {
 
 	return true
 }
+
+// CreateConfigurationFile is a Handler function for creating configuration file
+func CreateConfigurationFile() bool {
+	currentConfigPath := GetConfigPath()
+
+	_, fileErr := os.Stat(currentConfigPath)
+
+	if os.IsExist(fileErr) {
+		return false
+	}
+
+	f, err := os.Create(currentConfigPath)
+
+	defer f.Close()
+
+	if err != nil {
+		return false
+	}
+
+	return true
+}
